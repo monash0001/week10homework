@@ -1,0 +1,30 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 250,
+    "height": 220,
+    "data": { "url": "/data/RiseSeaLevelLand_Clean.csv" },
+    "selection": {
+      "Sea-Level Rise Scenarios_highlight": {
+      "type": "multi",
+      "fields": ["Sea-Level Rise Scenarios"],
+      "bind": "legend"
+      }
+      },     
+    "mark": "bar",
+    "encoding": {
+      "x": {"aggregate": "sum", "field": "PercentageofAreaimpacted","type": "quantitative","title":"Percentage of Area impacted"},
+      "y": {"field": "Region", "type": "ordinal" },
+      "color": { "field": "Sea-Level Rise Scenarios", "title": "Sea Level Rise Scenarios",
+        "sort": {"field": "*","order": "ascending","op": "count"}},
+        "opacity": {
+          "condition": {"selection": "Sea-Level Rise Scenarios_highlight", "value": 0.6},
+          "value": 0.2
+          },        
+      "order": {"aggregate": "sum", "field": "PercentageofAreaimpacted"},
+        "tooltip": [
+            {"field": "ImpactedArea", "type": "quantitative","title":"Area Impacted (in sq.km.)","format": ","},
+            {"field": "PercentageofAreaimpacted", "type": "quantitative", "title":"% of Region Area Impacted","format": ".2f"}
+            ]
+    },
+    "title": "Impact of Rising Sea Level on Land Area"
+    }
